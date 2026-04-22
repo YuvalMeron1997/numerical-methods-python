@@ -62,7 +62,7 @@ class CubicSplineInterpolation:
         vec = [2 * (2 * points[i] + points[i + 1]) for i in range(n)]
         vec[0] = points[0] + 2 * points[1]
         vec[n - 1] = 8 * points[n - 1] + points[n]
-        return self.thomas(down,middle,up,vec, points)
+        return self.thomas_algorithm(down,middle,up,vec, points)
 
 
 
