@@ -12,7 +12,6 @@ from sklearn.cluster import KMeans
 
 
 class EstimatedShape(AbstractShape):
-    # change this class with anything you need to implement the shape
     def __init__(self, area_1):
         self.a = area_1
 
