@@ -40,7 +40,7 @@ def NOISY(noise):
 def FLOAT32(function):
     def wrapper(*args, **kwargs):
         args = [np.float32(a) for a in args]
-        kwargs = {a: np.float32(kwargs[a]) for a in kwargs}
+        kwargs = {k: np.float32(v) for k, v in kwargs.items()}
         result = function(*args, **kwargs)
         result = np.float32(result)
         return result
@@ -80,7 +80,6 @@ class AbstractShape:
 
     def __init__(self):
         raise NotImplementedError()
-        pass
 
     def sample(self):
         """
@@ -90,8 +89,6 @@ class AbstractShape:
 
         """
         raise NotImplementedError()
-
-        return (0, 0)
 
     def contour(self, n: int):
         """
@@ -138,8 +135,3 @@ def plus(a, b):
 
 def minus(a,b):
     return a-b
-if __name__ == "__main__":
-    min=RESTRICT_INVOCATIONS(1)(minus)
-    print(min(3, 1.0 / 11))
-    # print(min(3, 1.0 / 11))
-    print([f(5) for f in [SAVEARGS(a=a)(lambda x,a: x+a) for a in range(3)]])
