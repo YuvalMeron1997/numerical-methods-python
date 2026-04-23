@@ -1,12 +1,12 @@
 """
-This is a collection of function generators that may be used to test the 
-different assignments in this work.
+Utility functions and shapes for testing numerical methods.
 
-Note that other functions may be used during testing of the submitted assignments.  
+Includes function generators and geometric shapes used for
+experimentation and validation.
 """
 
 import numpy as np
-from functionUtils import *
+from function_utils import AbstractShape
 
 
 def exp(b):
@@ -27,10 +27,10 @@ def poly(*a):
 
 def randomIntersectingPolynomials(deg):
     """
-    Generates two polynoms of degree deg such that the first and last coefficients have negative signs. 
+    Generates two polynomials of degree deg such that the first and last coefficients have negative signs. 
     [-,...,+]
     [+,...,-]
-    Deg must be even. If deg is even then such polinomials intersect in at least two points.     
+    Deg must be even. If deg is even then such polynomials intersect in at least two points.     
     """
     # Note: adding/subtracting 0.001 in the code below is a patch to avoid rare cases of zero coefficients
 
@@ -144,76 +144,3 @@ class BezierShape(AbstractShape):
 
 def noisy_circle(cx, cy, radius, noise) -> AbstractShape:
     return Circle(cx, cy, radius, noise).sample
-
-
-##########################################################################
-
-
-import unittest
-
-
-class TestSampleFunctions(unittest.TestCase):
-
-    def test_exp(self):
-        self.assertAlmostEqual(exp(2)(5), 32)
-
-    def test_poly(self):
-        self.assertAlmostEqual(poly(1, 0, 0)(5), 25)
-
-    def test_sinus(self):
-        self.assertAlmostEqual(sinus()(np.pi / 4), 0.70710678)
-
-    def test_bezier2(self):
-        bz = bezier2([0, 0], [2, 0.5], [0, 1])
-        self.assertAlmostEqual(sum(abs(bz(0) - np.array([0, 0]))), 0)
-        self.assertAlmostEqual(sum(abs(bz(1) - np.array([0, 1]))), 0)
-        self.assertAlmostEqual(sum(abs(bz(0.5) - np.array([1, 0.5]))), 0)
-
-    def test_bezier3(self):
-        bz = bezier3([0, 0], [2, 0.5], [2, 0.5], [0, 1])
-        self.assertAlmostEqual(sum(abs(bz(0) - np.array([0, 0]))), 0)
-        self.assertAlmostEqual(sum(abs(bz(1) - np.array([0, 1]))), 0)
-        self.assertAlmostEqual(sum(abs(bz(0.5) - np.array([1.5, 0.5]))), 0)
-
-    def test_oscilator(self):
-        f = strong_oscilations()
-        print(f(1))
-
-
-class TestCircle(unittest.TestCase):
-
-    def setUp(self):
-        self._circ = Circle(0, 0, 1, 0)
-
-    def test_sample(self):
-        x, y = self._circ.sample()
-        self.assertAlmostEqual(np.sqrt(x ** 2 + y ** 2), 1)
-
-    def test_contour(self):
-        xy = self._circ.contour(5)
-        r = np.linalg.norm(xy, ord=2, axis=1)
-        self.assertAlmostEqual(r.sum(), 5)
-
-    def test_area(self):
-        a = self._circ.area()
-        self.assertAlmostEqual(a, np.pi)
-
-
-class TestBezierShape(unittest.TestCase):
-
-    def setUp(self):
-        knots = [[0, 0], [0, 1]]
-        control = [[2, 0.5], [2, 0.5], [-2, 0.5], [-2, 0.5]]
-        self._shape = BezierShape(knots, control, noise=0)
-
-    def test_sample(self):
-        for i in range(10):
-            x, y = self._shape.sample()
-            self.assertLessEqual(x, 1.5)
-            self.assertGreaterEqual(x, -1.5)
-            self.assertLessEqual(y, 1)
-            self.assertGreaterEqual(y, 0)
-
-
-if __name__ == "__main__":
-    unittest.main()
