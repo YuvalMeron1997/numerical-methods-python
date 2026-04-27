@@ -6,7 +6,7 @@ This project was developed as part of a numerical analysis course and structured
 
 ---
 
-## 🚀 Features
+## Features
 
 - Cubic spline interpolation
 - Root finding (Bisection, Newton-Raphson, Secant, Regula Falsi)
@@ -17,7 +17,7 @@ This project was developed as part of a numerical analysis course and structured
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 ```
 numerical-methods-python/
 │
@@ -34,29 +34,29 @@ numerical-methods-python/
 ```
 ---
 
-## 🧠 Modules Overview
+## Modules Overview
 
-### 🔹 Cubic Spline Interpolation
+### Cubic Spline Interpolation
 Approximates a function over an interval using piecewise cubic polynomials, ensuring smoothness and continuity.
 
-### 🔹 Root Finding Methods
+### Root Finding Methods
 Finds intersection points between two functions using:
 - Bisection method
 - Newton-Raphson refinement
 - Secant and Regula Falsi (optional helpers)
 
-### 🔹 Numerical Integration
+### Numerical Integration
 Implements Simpson’s Rule to approximate definite integrals and compute area between two functions.
 
-### 🔹 Least Squares Fitting
+### Least Squares Fitting
 Fits a polynomial to noisy data by minimizing mean squared error using linear algebra.
 
-### 🔹 Shape Area Estimation
+### Shape Area Estimation
 Reconstructs a shape from noisy sampled points using clustering (KMeans) and estimates its area.
 
 ---
 
-## ⚙️ Utilities
+## Utilities
 
 ### function_utils.py
 Includes:
